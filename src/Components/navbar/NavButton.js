@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Header, Nav, Link, SvgBox } from "./Styles";
+import { Header, Nav, SvgBox } from "./Styles";
 
 
 function NavButton() {
@@ -30,19 +30,19 @@ function NavButton() {
     },
   };
 
-  const linkVariants = {
-    opened: {
-      opacity: 1,
-      y: 50,
-    },
-    closed: {
-      opacity: 0,
-      y: 0,
-    },
-  };
+  // const linkVariants = {
+  //   opened: {
+  //     opacity: 1,
+  //     y: 50,
+  //   },
+  //   closed: {
+  //     opacity: 0,
+  //     y: 0,
+  //   },
+  // };
 
   return (
-    <div className="App">
+    <div className="App navButton">
       <Header       
           animate={isOpen ? "opened" : "closed"}
           whileHover={{ scale: 1.8 }}
@@ -73,10 +73,10 @@ function NavButton() {
         variants={menuVariants}
         animate={isOpen ? "opened" : "closed"}
       >
-        <a href={"/"}>Home</a>
-        <a href={"/about"}>About</a>
-        <a href={"/Categories"}>Categories</a>
-        <a href={"/Contact us"}>Contactus</a>
+        <a className="accordion-body" href={"/"}>Home</a>
+        <a className="accordion-body" href={"/about"}>About</a>
+        <a className="accordion-body" href={"/Categories"}>Categories</a>
+        <a className="accordion-body" href={"/Contact us"}>Contactus</a>  
       </Nav>
     </div>
   );
