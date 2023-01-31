@@ -55,6 +55,7 @@
     ]
   },
   "devDependencies": {
+    "gh-pages": "^4.0.0",
     "react-responsive-select": "^7.0.4"
   }
 }

@@ -6,7 +6,7 @@ import AsyncSelect from "react-select/async";
 import { components } from "react-select";
 import { motion } from "framer-motion";
 import { customStyles } from "./barstyles";
-import logo from "./oferta-especial.png";
+import isespecialLogo from "./oferta-especial.png";
 // import chroma from 'chroma-js';
 // import FetchData2 from "../data/data";
 //fortawesome icons
@@ -23,7 +23,7 @@ function UpdateCompo() {
   useEffect(() => {
     let baseUrl;
     let category = "";
-    console.log(history);
+  
     if (history?.location?.pathname?.split("/")[1]) {
       category = history?.location?.pathname?.split("/")[1];
       baseUrl = `${url}categorias/?search=${category}`;
@@ -43,12 +43,8 @@ function UpdateCompo() {
           console.log(error);
         }
       );
+      // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  // handle input change event
-  // const handleInputChange = (value) => {
-  //   setValue(value);
-  //   console.log(value);
-  // };
 
   const DropdownIndicator = (props) => {
     return (
@@ -66,7 +62,7 @@ function UpdateCompo() {
   };
   /// load options
   const loadOptions = (inputValue) => {
-    console.log(inputValue);
+    
     return fetch(`${url}categorias/?search=${inputValue}`)
       .then((res) => res.json())
       .then();
@@ -102,56 +98,70 @@ function UpdateCompo() {
   // cargado
   else {
     return (
-      <div>
-        
-          <AsyncSelect
-            className="search-input"
-            defaultOptions
-            type="text"
-            components={{ DropdownIndicator }}
-            styles={customStyles}
-            onMouseEnter={selectedValue}
-            placeholder="Search..."
-            value={selectedValue}
-            getOptionLabel={(e) => e.name}
-            loadOptions={loadOptions}
-            // onInputChange={handleInputChange}
+      <>
+        <AsyncSelect
+          className="search-input"
+          defaultOptions
+          type="text"
+          components={{ DropdownIndicator }}
+          styles={customStyles}
+          onMouseEnter={selectedValue}
+          placeholder="Search..."
+          value={selectedValue}
+          getOptionLabel={(e) => e.name}
+          loadOptions={loadOptions}
+          // onInputChange={handleInputChange}
+          
 
-            onChange={handleChange}
-          />
-        
+          onChange={handleChange}
+        />
 
         <div className="contenido">
           {items.map((todo) => (
             <motion.a
-              className="card"
+              className="card card-body"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 3 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3 }}
               whileHover={{ scale: 0.9 }}
               whileTap={{ scale: 0.9 }}
-              key={todo.id}
+           
               href={todo.url_amazon}
             >
-              <Card.Body>
                 <div className="contador-is_especial">
-                <div className="contador">
-                  <p></p>
-                </div>
-                <div> {todo.is_especial === true && (
-                  <img src={logo} width="30 rem" height="30 rem" alt="logo" />
-                )}</div>
+                  <div className="contador">
+                    <p></p>
+                  </div>
+                  <div>
+                    {" "}
+                    {todo.is_especial === true && (
+                      <img
+                        src={isespecialLogo}
+                        width="30 rem"
+                        height="30 rem"
+                        alt="Es especial"
+                      />
+                    )}
+                  </div>
                 </div>
 
-               
-
-                <div className="category-text-card"> <a href={todo.category}>{todo.category}</a> </div>
+                <div className="category-text-card">
+                  {" "}
+                  <a href={todo.category}>{todo.category}</a>{" "}
+                </div>
                 <Card.Img
-                  style={{ backgroundImage: `url(${todo.item_pictures})` }}
+                  className="img-fluid card-img-top w-100 "
+                  src={todo.item_pictures}
+                  alt={todo.item_description}
+                  // style={{ backgroundImage: `url(${todo.item_pictures})` }}
                 />
-                <Card.Text> {todo.item_description}</Card.Text>
-              </Card.Body>
+
+                  <h1 className="p-2">
+                    {" "}
+                    {todo.item_description}
+                  </h1>      
+             
               <Card.Footer>
                 <motion.button
                   whileHover={{ scale: 1.1 }}
@@ -164,12 +174,12 @@ function UpdateCompo() {
 
                 <br />
                 <FontAwesomeIcon icon={faAmazon} size="lg" />
-                <small className="text-muted">{"  "}Amazon.co.uk</small>
+                <small>{"  "}Amazon.co.uk</small>
               </Card.Footer>
             </motion.a>
           ))}
         </div>
-      </div>
+      </>
     );
   }
 }
